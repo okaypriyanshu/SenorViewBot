@@ -3,10 +3,9 @@ from abc import abstractmethod, ABCMeta
 # Add other languages and their corresponding codes as needed.
 # You can also keep only one language by removing the line with the unwanted language.
 SUPPORTED_LANGUAGES = {
-    "ru": "🇷🇺 Русский",
     "en": "🇬🇧 English",
+    "es": "🇪🇸 Español",
 }
-
 
 class Text(metaclass=ABCMeta):
     """
@@ -17,7 +16,7 @@ class Text(metaclass=ABCMeta):
         """
         Initializes the Text instance with the specified language code.
 
-        :param language_code: The language code (e.g., "ru" or "en").
+        :param language_code: The language code (e.g., "en" or "es").
         """
         self.language_code = language_code if language_code in SUPPORTED_LANGUAGES.keys() else "en"
 
@@ -63,10 +62,6 @@ class TextMessage(Text):
                     "<b>The message was edited only in your chat.</b> "
                     "To send an edited message, send it as a new message."
                 ),
-                "source": (
-                    "Source code available at "
-                    "<a href=\"https://github.com/nessshon/support-bot\">GitHub</a>"
-                ),
                 "user_started_bot": (
                     "<b>User {name} started the bot!</b>\n\n"
                     "List of available commands:\n\n"
@@ -108,58 +103,54 @@ class TextMessage(Text):
                     "<b>Silent mode deactivated!</b> The user will receive all messages."
                 ),
             },
-            "ru": {
-                "select_language": "👋 <b>Привет</b>, {full_name}!\n\nВыберите язык:",
-                "change_language": "<b>Выберите язык:</b>",
-                "main_menu": "<b>Оставьте свой вопрос</b>, и мы ответим вам в ближайшее время:",
-                "message_sent": "<b>Сообщение отправлено!</b> Ожидайте ответа.",
+            "es": {
+                "select_language": "👋 <b>Hola</b>, {full_name}!\n\nSeleccione el idioma:",
+                "change_language": "<b>Seleccione el idioma:</b>",
+                "main_menu": "<b>Escriba su pregunta</b> y le responderemos lo antes posible:",
+                "message_sent": "<b>¡Mensaje enviado!</b> Espere una respuesta.",
                 "message_edited": (
-                    "<b>Сообщение отредактировано только в вашем чате.</b> "
-                    "Чтобы отправить отредактированное сообщение, отправьте его как новое сообщение."
-                ),
-                "source": (
-                    "Исходный код доступен на "
-                    "<a href=\"https://github.com/nessshon/support-bot\">GitHub</a>"
+                    "<b>El mensaje fue editado solo en su chat.</b> "
+                    "Para enviar un mensaje editado, envíelo como un nuevo mensaje."
                 ),
                 "user_started_bot": (
-                    "<b>Пользователь {name} запустил(а) бота!</b>\n\n"
-                    "Список доступных команд:\n\n"
+                    "<b>¡El usuario {name} ha iniciado el bot!</b>\n\n"
+                    "Lista de comandos disponibles:\n\n"
                     "• /ban\n"
-                    "Заблокировать/Разблокировать пользователя"
-                    "<blockquote>Заблокируйте пользователя, если не хотите получать от него сообщения.</blockquote>\n\n"
+                    "Bloquear/Desbloquear usuario"
+                    "<blockquote>Bloquee al usuario si no desea recibir mensajes de él.</blockquote>\n\n"
                     "• /silent\n"
-                    "Активировать/Деактивировать тихий режим"
-                    "<blockquote>При включенном тихом режиме сообщения не отправляются пользователю.</blockquote>\n\n"
+                    "Activar/Desactivar modo silencioso"
+                    "<blockquote>Cuando está activado el modo silencioso, no se envían mensajes al usuario.</blockquote>\n\n"
                     "• /information\n"
-                    "Информация о пользователе"
-                    "<blockquote>Получить сообщение с основной информацией о пользователе.</blockquote>"
+                    "Información del usuario"
+                    "<blockquote>Recibir un mensaje con información básica sobre el usuario.</blockquote>"
                 ),
-                "user_restarted_bot": "<b>Пользователь {name} перезапустил(а) бота!</b>",
-                "user_stopped_bot": "<b>Пользователь {name} остановил(а) бота!</b>",
-                "user_blocked": "<b>Пользователь заблокирован!</b> Сообщения от пользователя не принимаются.",
-                "user_unblocked": "<b>Пользователь разблокирован!</b> Сообщения от пользователя вновь принимаются.",
-                "blocked_by_user": "<b>Сообщение не отправлено!</b> Бот был заблокирован пользователем.",
+                "user_restarted_bot": "<b>¡El usuario {name} ha reiniciado el bot!</b>",
+                "user_stopped_bot": "<b>¡El usuario {name} ha detenido el bot!</b>",
+                "user_blocked": "<b>¡Usuario bloqueado!</b> No se aceptan mensajes del usuario.",
+                "user_unblocked": "<b>¡Usuario desbloqueado!</b> Se vuelven a aceptar mensajes del usuario.",
+                "blocked_by_user": "<b>¡Mensaje no enviado!</b> El usuario ha bloqueado al bot.",
                 "user_information": (
                     "<b>ID:</b>\n"
                     "- <code>{id}</code>\n"
-                    "<b>Имя:</b>\n"
+                    "<b>Nombre:</b>\n"
                     "- {full_name}\n"
-                    "<b>Статус:</b>\n"
+                    "<b>Estado:</b>\n"
                     "- {state}\n"
-                    "<b>Username:</b>\n"
+                    "<b>Nombre de usuario:</b>\n"
                     "- {username}\n"
-                    "<b>Заблокирован:</b>\n"
+                    "<b>Bloqueado:</b>\n"
                     "- {is_banned}\n"
-                    "<b>Дата регистрации:</b>\n"
+                    "<b>Fecha de registro:</b>\n"
                     "- {created_at}"
                 ),
-                "message_not_sent": "<b>Сообщение не отправлено!</b> Произошла неожиданная ошибка.",
-                "message_sent_to_user": "<b>Сообщение отправлено пользователю!</b>",
+                "message_not_sent": "<b>¡Mensaje no enviado!</b> Se produjo un error inesperado.",
+                "message_sent_to_user": "<b>¡Mensaje enviado al usuario!</b>",
                 "silent_mode_enabled": (
-                    "<b>Тихий режим активирован!</b> Сообщения не будут доставлены пользователю."
+                    "<b>¡Modo silencioso activado!</b> Los mensajes no se enviarán al usuario."
                 ),
                 "silent_mode_disabled": (
-                    "<b>Тихий режим деактивирован!</b> Пользователь будет получать все сообщения."
+                    "<b>¡Modo silencioso desactivado!</b> El usuario recibirá todos los mensajes."
                 ),
             },
         }
