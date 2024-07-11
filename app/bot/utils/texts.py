@@ -1,90 +1,102 @@
-from abc import abstractmethod, ABCMeta
+Last login: Thu Jul 11 14:06:37 on ttys000
+senor@Mac ~ % ssh senor@65.20.77.250
+senor@65.20.77.250's password: 
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-113-generic x86_64)
 
-# Add other languages and their corresponding codes as needed.
-# You can also keep only one language by removing the line with the unwanted language.
-SUPPORTED_LANGUAGES = {
-    "en": "🇬🇧 English",
-}
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
 
+ System information as of Thu Jul 11 09:01:26 AM UTC 2024
 
-class Text(metaclass=ABCMeta):
-    """
-    Abstract base class for handling text data in different languages.
-    """
+  System load:  0.2                Processes:               156
+  Usage of /:   41.6% of 22.88GB   Users logged in:         1
+  Memory usage: 40%                IPv4 address for enp1s0: 65.20.77.250
+  Swap usage:   6%
 
-    def __init__(self, language_code: str) -> None:
-        """
-        Initializes the Text instance with the specified language code.
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
 
-        :param language_code: The language code (e.g., "es" or "en").
-        """
-        self.language_code = language_code if language_code in SUPPORTED_LANGUAGES.keys() else "en"
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
 
-    @property
-    @abstractmethod
-    def data(self) -> dict:
-        """
-        Abstract property to be implemented by subclasses. Represents the language-specific text data.
+Expanded Security Maintenance for Applications is not enabled.
 
-        :return: Dictionary containing language-specific text data.
-        """
-        raise NotImplementedError
+0 updates can be applied immediately.
 
-    def get(self, code: str) -> str:
-        """
-        Retrieves the text corresponding to the provided code in the current language.
-
-        :param code: The code associated with the desired text.
-        :return: The text in the current language.
-        """
-        return self.data[self.language_code][code]
+3 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
 
 
-class TextMessage(Text):
-    """
-    Subclass of Text for managing text messages in different languages.
-    """
+Last login: Thu Jul 11 08:46:47 2024 from 223.228.226.215
+senor@vultr:~$ cd SenorViewBot
+senor@vultr:~/SenorViewBot$ ls
+Dockerfile  README.md  docker-compose.yml  requirements.txt
+LICENSE     app        redis
+senor@vultr:~/SenorViewBot$ docker-compose restart
+[+] Restarting 2/2
+ ✔ Container support-redis  Started                                        1.0s 
+ ✔ Container support-bot    Started                                        0.7s 
+senor@vultr:~/SenorViewBot$ cd app/bot/utils
+senor@vultr:~/SenorViewBot/app/bot/utils$ ls
+__init__.py  create_forum_topic.py  exceptions.py  redis  texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ nano texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ docker-compose restart
+[+] Restarting 2/2
+ ✔ Container support-redis  Started                                        0.9s 
+ ✔ Container support-bot    Started                                        0.8s 
+senor@vultr:~/SenorViewBot/app/bot/utils$ nano texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ docker-compose restart
+[+] Restarting 2/2
+ ✔ Container support-redis  Started                                        0.6s 
+ ✔ Container support-bot    Started                                       10.5s 
+senor@vultr:~/SenorViewBot/app/bot/utils$ nano texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ docker-compose restart
+[+] Restarting 2/2
+ ✔ Container support-redis  Started                                        1.0s 
+ ✔ Container support-bot    Started                                        0.8s 
+senor@vultr:~/SenorViewBot/app/bot/utils$ nano texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ docker-compose restart
+[+] Restarting 2/2
+ ✔ Container support-bot    Started                                       10.5s 
+ ✔ Container support-redis  Started                                        0.5s 
+senor@vultr:~/SenorViewBot/app/bot/utils$ client_loop: send disconnect: Broken pipe
+senor@Mac ~ % ssh senor@65.20.77.250
+senor@65.20.77.250's password: 
+Welcome to Ubuntu 22.04.4 LTS (GNU/Linux 5.15.0-113-generic x86_64)
 
-    @property
-    def data(self) -> dict:
-        """
-        Provides language-specific text data for text messages.
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
 
-        :return: Dictionary containing language-specific text data for text messages.
-        """
-        return {
-            "en": {
-                "select_language": "👋 <b>Hello</b>, {full_name}!\n\nSelect language:",
-                "change_language": "<b>Select language:</b>",
-                "main_menu": "<b>Write your question</b>, and we will answer you as soon as possible:",
-                "message_sent": "<b>Message sent!</b> Expect a response.",
-                "message_edited": (
-                    "<b>The message was edited only in your chat.</b> "
-                    "To send an edited message, send it as a new message."
-                ),
-                "user_started_bot": (
-                    "<b>User {name} started the bot!</b>\n\n"
-                    "List of available commands:\n\n"
-                    "• /ban\n"
-                    "Block/Unblock user"
-                    "<blockquote>Block the user if you do not want to receive messages from him.</blockquote>\n\n"
-                    "• /silent\n"
-                    "Activate/Deactivate silent mode"
-                    "<blockquote>When silent mode is enabled, messages are not sent to the user.</blockquote>\n\n"
-                    "• /information\n"
-                    "User information"
-                    "<blockquote>Receive a message with basic information about the user.</blockquote>"
-                ),
-                "user_restarted_bot": "<b>User {name} restarted the bot!</b>",
-                "user_stopped_bot": "<b>User {name} stopped the bot!</b>",
-                "user_blocked": "<b>User blocked!</b> Messages from the user are not accepted.",
-                "user_unblocked": "<b>User unblocked!</b> Messages from the user are being accepted again.",
-                "blocked_by_user": "<b>Message not sent!</b> The bot has been blocked by the user.",
-                "user_information": (
-                    "<b>ID:</b>\n"
-                    "- <code>{id}</code>\n"
-                    "<b>Name:</b>\n"
-                    "- {full_name}\n"
+ System information as of Thu Jul 11 10:01:09 AM UTC 2024
+
+  System load:  0.0                Processes:               161
+  Usage of /:   41.6% of 22.88GB   Users logged in:         1
+  Memory usage: 54%                IPv4 address for enp1s0: 65.20.77.250
+  Swap usage:   6%
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+3 additional security updates can be applied with ESM Apps.
+Learn more about enabling ESM Apps service at https://ubuntu.com/esm
+
+
+Last login: Thu Jul 11 09:01:27 2024 from 223.228.226.215
+senor@vultr:~$ cd SenorViewBot app/bot/utils
+-bash: cd: too many arguments
+senor@vultr:~$ cd SenorViewBot/app/bot/utils
+senor@vultr:~/SenorViewBot/app/bot/utils$ ls
+__init__.py  create_forum_topic.py  exceptions.py  redis  texts.py
+senor@vultr:~/SenorViewBot/app/bot/utils$ nano texts.py
+
+  GNU nano 6.2                        texts.py                            M     
                     "<b>Status:</b>\n"
                     "- {state}\n"
                     "<b>Username:</b>\n"
@@ -94,12 +106,13 @@ class TextMessage(Text):
                     "<b>Registration date:</b>\n"
                     "- {created_at}"
                 ),
-                "message_not_sent": "<b>Message not sent!</b> An unexpected error occurred.",
+                "message_not_sent": "<b>Message not sent!</b> An unexpected err>
                 "message_sent_to_user": "<b>Message sent to user!</b>",
                 "silent_mode_enabled": (
-                    "<b>Silent mode activated!</b> Messages will not be delivered to the user."
+                    "<b>Silent mode activated!</b> Messages will not be deliver>
                 ),
                 "silent_mode_disabled": (
-                    "<b>Silent mode deactivated!</b> The user will receive all messages."
+                    "<b>Silent mode deactivated!</b> The user will receive all >
                 ),
             }
+        }
