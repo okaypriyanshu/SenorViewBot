@@ -5,7 +5,9 @@ from abc import abstractmethod, ABCMeta
 SUPPORTED_LANGUAGES = {
     "en": "🇬🇧 English",
     "es": "🇪🇸 Español",
+    "hi": "🇮🇳 हिन्दी",
 }
+
 
 class Text(metaclass=ABCMeta):
     """
@@ -16,7 +18,7 @@ class Text(metaclass=ABCMeta):
         """
         Initializes the Text instance with the specified language code.
 
-        :param language_code: The language code (e.g., "en" or "es").
+        :param language_code: The language code (e.g., "en", "es", "hi").
         """
         self.language_code = language_code if language_code in SUPPORTED_LANGUAGES.keys() else "en"
 
@@ -106,8 +108,8 @@ class TextMessage(Text):
             "es": {
                 "select_language": "👋 <b>Hola</b>, {full_name}!\n\nSeleccione el idioma:",
                 "change_language": "<b>Seleccione el idioma:</b>",
-                "main_menu": "<b>Escriba su pregunta</b> y le responderemos lo antes posible:",
-                "message_sent": "<b>¡Mensaje enviado!</b> Espere una respuesta.",
+                "main_menu": "<b>Escriba su pregunta</b>, y le responderemos lo antes posible:",
+                "message_sent": "<b>Mensaje enviado!</b> Espere una respuesta.",
                 "message_edited": (
                     "<b>El mensaje fue editado solo en su chat.</b> "
                     "Para enviar un mensaje editado, envíelo como un nuevo mensaje."
@@ -117,13 +119,13 @@ class TextMessage(Text):
                     "Lista de comandos disponibles:\n\n"
                     "• /ban\n"
                     "Bloquear/Desbloquear usuario"
-                    "<blockquote>Bloquee al usuario si no desea recibir mensajes de él.</blockquote>\n\n"
+                    "<blockquote>Bloquea al usuario si no deseas recibir mensajes de él.</blockquote>\n\n"
                     "• /silent\n"
                     "Activar/Desactivar modo silencioso"
-                    "<blockquote>Cuando está activado el modo silencioso, no se envían mensajes al usuario.</blockquote>\n\n"
+                    "<blockquote>Cuando está activado el modo silencioso, los mensajes no se envían al usuario.</blockquote>\n\n"
                     "• /information\n"
                     "Información del usuario"
-                    "<blockquote>Recibir un mensaje con información básica sobre el usuario.</blockquote>"
+                    "<blockquote>Recibe un mensaje con información básica sobre el usuario.</blockquote>"
                 ),
                 "user_restarted_bot": "<b>¡El usuario {name} ha reiniciado el bot!</b>",
                 "user_stopped_bot": "<b>¡El usuario {name} ha detenido el bot!</b>",
@@ -147,10 +149,60 @@ class TextMessage(Text):
                 "message_not_sent": "<b>¡Mensaje no enviado!</b> Se produjo un error inesperado.",
                 "message_sent_to_user": "<b>¡Mensaje enviado al usuario!</b>",
                 "silent_mode_enabled": (
-                    "<b>¡Modo silencioso activado!</b> Los mensajes no se enviarán al usuario."
+                    "<b>¡Modo silencioso activado!</b> Los mensajes no se entregarán al usuario."
                 ),
                 "silent_mode_disabled": (
                     "<b>¡Modo silencioso desactivado!</b> El usuario recibirá todos los mensajes."
+                ),
+            },
+            "hi": {
+                "select_language": "👋 <b>नमस्ते</b>, {full_name}!\n\nभाषा चुनें:",
+                "change_language": "<b>भाषा चुनें:</b>",
+                "main_menu": "<b>अपना सवाल लिखें</b>, हम जल्दी ही आपको उत्तर देंगे:",
+                "message_sent": "<b>संदेश भेजा गया!</b> उत्तर की प्रतीक्षा करें।",
+                "message_edited": (
+                    "<b>संदेश को केवल आपके चैट में संपादित किया गया था।</b> "
+                    "संपादित संदेश भेजने के लिए, इसे नए संदेश के रूप में भेजें।"
+                ),
+                "user_started_bot": (
+                    "<b>उपयोगकर्ता {name} ने बॉट शुरू किया है!</b>\n\n"
+                    "उपलब्ध कमांड्स की सूची:\n\n"
+                    "• /ban\n"
+                    "उपयोगकर्ता को ब्लॉक/अनब्लॉक करें"
+                    "<blockquote>उपयोगकर्ता को ब्लॉक करें अगर आप उससे संदेश प्राप्त नहीं करना चाहते हैं।</blockquote>\n\n"
+                    "• /silent\n"
+                    "स्थिर मोड सक्रिय/निष्क्रिय करें"
+                    "<blockquote>जब स्थिर मोड सक्रिय होता है, संदेश उपयोगकर्ता को नहीं भेजे जाते हैं।</blockquote>\n\n"
+                    "• /information\n"
+                    "उपयोगकर्ता जानकारी"
+                    "<blockquote>उपयोगकर्ता के बारे में मूल जानकारी के साथ एक संदेश प्राप्त करें।</blockquote>"
+                ),
+                "user_restarted_bot": "<b>उपयोगकर्ता {name} ने बॉट को पुनः प्रारंभ किया है!</b>",
+                "user_stopped_bot": "<b>उपयोगकर्ता {name} ने बॉट को रोक दिया है!</b>",
+                "user_blocked": "<b>उपयोगकर्ता ब्लॉक किया गया है!</b> उपयोगकर्ता से संदेश स्वीकार नहीं किए जाते हैं।",
+                "user_unblocked": "<b>उपयोगकर्ता अनब्लॉक किया गया है!</b> उपयोगकर्ता से फिर से संदेश स्वीकार किए जा रहे हैं।",
+                "blocked_by_user": "<b>संदेश नहीं भेजा गया!</b> उपयोगकर्ता ने बॉट को ब्लॉक कर दिया है।",
+                "user_information": (
+                    "<b>ID:</b>\n"
+                    "- <code>{id}</code>\n"
+                    "<b>नाम:</b>\n"
+                    "- {full_name}\n"
+                    "<b>स्थिति:</b>\n"
+                    "- {state}\n"
+                    "<b>उपयोगकर्ता नाम:</b>\n"
+                    "- {username}\n"
+                    "<b>ब्लॉक किया गया:</b>\n"
+                    "- {is_banned}\n"
+                    "<b>पंजीकरण तिथि:</b>\n"
+                    "- {created_at}"
+                ),
+                "message_not_sent": "<b>संदेश नहीं भेजा गया!</b> एक अनपेक्षित त्रुटि आई है।",
+                "message_sent_to_user": "<b>उपयोगकर्ता को संदेश भेजा गया!</b>",
+                "silent_mode_enabled": (
+                    "<b>स्थिर मोड सक्रिय किया गया!</b> संदेश उपयोगकर्ता तक पहुँचाए नहीं जाएंगे।"
+                ),
+                "silent_mode_disabled": (
+                    "<b>स्थिर मोड निष्क्रिय किया गया!</b> उपयोगकर्ता को सभी संदेश मिलेंगे।"
                 ),
             },
         }
