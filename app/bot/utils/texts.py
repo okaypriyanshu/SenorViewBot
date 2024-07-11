@@ -3,7 +3,6 @@ from abc import abstractmethod, ABCMeta
 # Add other languages and their corresponding codes as needed.
 # You can also keep only one language by removing the line with the unwanted language.
 SUPPORTED_LANGUAGES = {
-    "es": "🇪🇸 Español",
     "en": "🇬🇧 English",
 }
 
@@ -63,6 +62,10 @@ class TextMessage(Text):
                     "<b>The message was edited only in your chat.</b> "
                     "To send an edited message, send it as a new message."
                 ),
+                "source": (
+                    "Source code available at "
+                    "<a href=\"https://github.com/nessshon/support-bot\">GitHub</a>"
+                ),
                 "user_started_bot": (
                     "<b>User {name} started the bot!</b>\n\n"
                     "List of available commands:\n\n"
@@ -103,55 +106,4 @@ class TextMessage(Text):
                 "silent_mode_disabled": (
                     "<b>Silent mode deactivated!</b> The user will receive all messages."
                 ),
-            },
-            "es": {
-                "select_language": "👋 <b>Hola</b>, {full_name}!\n\nSeleccione el idioma:",
-                "change_language": "<b>Seleccione el idioma:</b>",
-                "main_menu": "<b>Escriba su pregunta</b>, y le responderemos lo antes posible:",
-                "message_sent": "<b>Mensaje enviado!</b> Espere una respuesta.",
-                "message_edited": (
-                    "<b>El mensaje fue editado solo en su chat.</b> "
-                    "Para enviar un mensaje editado, envíelo como un nuevo mensaje."
-                ),
-                "user_started_bot": (
-                    "<b>El usuario {name} ha iniciado el bot!</b>\n\n"
-                    "Lista de comandos disponibles:\n\n"
-                    "• /ban\n"
-                    "Bloquear/Desbloquear usuario"
-                    "<blockquote>Bloquea al usuario si no deseas recibir mensajes de él.</blockquote>\n\n"
-                    "• /silent\n"
-                    "Activar/Desactivar modo silencioso"
-                    "<blockquote>Cuando está activado el modo silencioso, los mensajes no se envían al usuario.</blockquote>\n\n"
-                    "• /information\n"
-                    "Información del usuario"
-                    "<blockquote>Recibe un mensaje con información básica sobre el usuario.</blockquote>"
-                ),
-                "user_restarted_bot": "<b>El usuario {name} ha reiniciado el bot!</b>",
-                "user_stopped_bot": "<b>El usuario {name} ha detenido el bot!</b>",
-                "user_blocked": "<b>¡Usuario bloqueado!</b> Mensajes del usuario no se aceptan.",
-                "user_unblocked": "<b>¡Usuario desbloqueado!</b> Mensajes del usuario se están aceptando nuevamente.",
-                "blocked_by_user": "<b>¡Mensaje no enviado!</b> El usuario ha bloqueado al bot.",
-                "user_information": (
-                    "<b>ID:</b>\n"
-                    "- <code>{id}</code>\n"
-                    "<b>Nombre:</b>\n"
-                    "- {full_name}\n"
-                    "<b>Estado:</b>\n"
-                    "- {state}\n"
-                    "<b>Nombre de usuario:</b>\n"
-                    "- {username}\n"
-                    "<b>Bloqueado:</b>\n"
-                    "- {is_banned}\n"
-                    "<b>Fecha de registro:</b>\n"
-                    "- {created_at}"
-                ),
-                "message_not_sent": "<b>¡Mensaje no enviado!</b> Se produjo un error inesperado.",
-                "message_sent_to_user": "<b>¡Mensaje enviado al usuario!</b>",
-                "silent_mode_enabled": (
-                    "<b>¡Modo silencioso activado!</b> Los mensajes no se entregarán al usuario."
-                ),
-                "silent_mode_disabled": (
-                    "<b>¡Modo silencioso desactivado!</b> El usuario recibirá todos los mensajes."
-                ),
-            },
-        }
+            }
